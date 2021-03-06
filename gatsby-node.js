@@ -10,9 +10,18 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const BlogPostTemplate = path.resolve("./src/templates/BlogPostTemplate.js")
+  const PageTemplate = path.resolve("./src/templates/PageTemplate.js")
   const result = await graphql(`
     {
       allWpPost {
+        edges {
+          node {
+            slug
+            id
+          }
+        }
+      }
+      allWpPage {
         edges {
           node {
             slug
@@ -26,6 +35,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
     return
   }
+  const Pages = result.data.allWpPage.edges
+  Pages.forEach(page => {
+  	console.log(page.node.slug)
+    createPage({
+      path: `/${page.node.slug}`,
+      component: PageTemplate,
+      context: {
+        id: page.node.id,
+      },
+    })
+  })
   const BlogPosts = result.data.allWpPost.edges
   BlogPosts.forEach(post => {
     createPage({
