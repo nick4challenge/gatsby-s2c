@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 const BlogPostTemplate = ({ data }) => (
@@ -10,7 +9,6 @@ const BlogPostTemplate = ({ data }) => (
     <p>
       Written by {data.wpPost.author.node.name} on {data.wpPost.date}
     </p>
-    <Img src={data.wpPost.featuredImage.node.sourceUrl} alt={data.wpPost.featuredImage.node.altText} style={{ maxHeight: 450 }} />
     <div style={{ marginTop: 20 }} dangerouslySetInnerHTML={{ __html: data.wpPost.content }} />
   </Layout>
 )

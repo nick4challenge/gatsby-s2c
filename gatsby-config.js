@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `My WP Powered Gatsby site`,
-    description: `Powered by WP, built with Gatsby`,
+    title: `Safe2choose - Beta`,
+    description: `Unwanted pregnancy? We can support you`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -30,18 +30,15 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        url: "https://www.blogstars.in/gql",
+        url: "https://stg-admin.safe2choose.org/gql-data",
         // I have created a dummy site for us to use with the plugins we discussed
-        baseUrl: "blogstars.in",
-        protocol: "https",
         hostingWPCOM: false,
         // We will be using some advanced custom fields
-        useACF: true,
         acfOptionPageIds: [],
         verboseOutput: false,
         perPage: 100,
         searchAndReplaceContentUrls: {
-          sourceUrl: "https://www.blogstars.in",
+          sourceUrl: "https://stg-admin.safe2choose.org",
           replacementUrl: "https://relaxed-wilson-c5f13d.netlify.app",
         },
         // Set how many simultaneous requests are sent at once.
@@ -54,6 +51,8 @@ module.exports = {
           "**/tags",
           "**/taxonomies",
           "**/users",
+          "**/*/*/menus", // <== Menu api endpoint
+          "**/*/*/menu-locations", // <== Menu api endpoint
         ],
         excludedRoutes: [],
         normalizer: function({ entities }) {
