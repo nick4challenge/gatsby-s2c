@@ -26,6 +26,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             slug
             id
+            isFrontPage
           }
         }
       }
@@ -38,8 +39,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const Pages = result.data.allWpPage.edges
   Pages.forEach(page => {
   	console.log(page.node.slug)
+    slg = `/${page.node.slug}`
+    if(page.node.isFrontPage) {
+      slg = '/'
+    }
     createPage({
-      path: `/${page.node.slug}`,
+      path: slg,
       component: PageTemplate,
       context: {
         id: page.node.id,
