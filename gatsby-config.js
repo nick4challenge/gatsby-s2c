@@ -13,6 +13,7 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -31,15 +32,9 @@ module.exports = {
       resolve: "gatsby-source-wordpress",
       options: {
         url: "https://stg-admin.safe2choose.org/gql-data",
-        // I have created a dummy site for us to use with the plugins we discussed
-        hostingWPCOM: false,
-        // We will be using some advanced custom fields
-        acfOptionPageIds: [],
-        verboseOutput: false,
-        perPage: 100,
-        searchAndReplaceContentUrls: {
-          sourceUrl: "https://stg-admin.safe2choose.org",
-          replacementUrl: "https://relaxed-wilson-c5f13d.netlify.app",
+        html: {
+          useGatsbyImage: true,
+          createStaticFiles: true,
         },
         // Set how many simultaneous requests are sent at once.
         concurrentRequests: 10,
